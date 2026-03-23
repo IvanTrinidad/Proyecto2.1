@@ -1,0 +1,351 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #3a7d2c;
+}
+
+/* ============================================================
+   PANTALLAS
+   ============================================================ */
+
+.pantalla {
+    display: none;
+    min-height: 100vh;
+}
+
+.pantalla.activa {
+    display: block;
+}
+
+/* ============================================================
+   MENU INICIO Y CONFIGURACION (pantallas centradas)
+   ============================================================ */
+
+#pantalla-inicio,
+#pantalla-config {
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #1e4d10, #3a7d2c);
+}
+
+#pantalla-inicio.activa,
+#pantalla-config.activa {
+    display: flex;
+}
+
+.caja-centro {
+    background: white;
+    padding: 40px 50px;
+    border-radius: 12px;
+    width: 340px;
+    text-align: center;
+}
+
+.caja-centro h1 {
+    font-size: 2.2rem;
+    color: #2d6a1f;
+    margin-bottom: 5px;
+}
+
+.caja-centro h2 {
+    font-size: 1.5rem;
+    color: #2d6a1f;
+    margin-bottom: 20px;
+}
+
+.subtitulo {
+    color: #888;
+    margin-bottom: 25px;
+    font-style: italic;
+}
+
+/* Botones del menu inicio */
+.caja-centro button,
+.caja-centro a {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+}
+
+#btn-nueva     { background: #3a7d2c; color: white; }
+#btn-continuar { background: #5a9e48; color: white; }
+#btn-eliminar  { background: #c0392b; color: white; }
+#btn-github    { background: #333;    color: white; }
+
+button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* ============================================================
+   FORMULARIO DE CONFIGURACION
+   ============================================================ */
+
+.campo {
+    text-align: left;
+    margin-bottom: 14px;
+}
+
+.campo label {
+    display: block;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+}
+
+.campo input,
+.campo select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+.campo input.campo-error,
+.campo select.campo-error {
+    border-color: red;
+}
+
+.error {
+    color: red;
+    font-size: 0.8rem;
+    display: block;
+    min-height: 16px;
+}
+
+.botones-fila {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.botones-fila button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+#btn-volver  { background: #aaa; color: white; }
+#btn-empezar { background: #3a7d2c; color: white; }
+
+/* ============================================================
+   PANTALLA DE JUEGO
+   ============================================================ */
+
+#pantalla-juego.activa {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Barra de informacion */
+#barra {
+    background: #1e4d10;
+    color: white;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+#barra button {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+#btn-guardar { background: #e67e22; color: white; margin-left: auto; }
+#btn-menu    { background: #aaa;    color: white; }
+
+/* Zona de juego */
+#zona-juego {
+    display: flex;
+    flex: 1;
+}
+
+/* Panel lateral */
+#panel-lateral {
+    width: 190px;
+    background: rgba(255, 255, 255, 0.93);
+    padding: 12px;
+    border-right: 3px solid #2d6a1f;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow-y: auto;
+}
+
+#panel-lateral h3 {
+    color: #2d6a1f;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 4px;
+    margin-top: 8px;
+}
+
+/* Herramientas */
+.herramienta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px;
+    margin-bottom: 4px;
+    background: #f5f5f5;
+    border-radius: 5px;
+    font-size: 0.85rem;
+}
+
+.herramienta img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    background: #ddd;
+    border-radius: 4px;
+    /* IMAGEN: icono de la herramienta */
+}
+
+/* Inventario */
+.item-inv {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px;
+    margin-bottom: 4px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.item-inv:hover {
+    border-color: #3a7d2c;
+}
+
+.item-inv.seleccionado {
+    border-color: #e67e22;
+    background: #fff5ee;
+}
+
+.item-inv img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    background: #f0f0f0;
+    border-radius: 4px;
+    /* IMAGEN: imagen de la semilla */
+}
+
+.texto-vacio {
+    color: #aaa;
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 6px 0;
+}
+
+#btn-recargar {
+    background: #9b59b6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 7px;
+    cursor: pointer;
+    font-size: 0.78rem;
+    margin-top: auto;
+}
+
+/* Panel terreno */
+#panel-terreno {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    overflow-y: auto;
+    /* IMAGEN: fondo del terreno - foto de granja con animales y plantas */
+    background-image: url(fondo_terreno.png);
+    background-size: cover;
+    background-position: center;
+}
+
+#panel-terreno h3 {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 5px 18px;
+    border-radius: 20px;
+    color: #2d6a1f;
+}
+
+/* Cuadricula */
+#cuadricula {
+    display: grid;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 12px;
+}
+
+/* Parcelas */
+.parcela {
+    width: 110px;
+    height: 110px;
+    background: rgba(139, 90, 43, 0.8);
+    border: 3px solid #5c3317;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-align: center;
+}
+
+.parcela:hover {
+    filter: brightness(1.1);
+}
+
+.parcela.madura {
+    border-color: gold;
+    background: rgba(210, 170, 30, 0.85);
+}
+
+.parcela img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    /* IMAGEN: imagen del cultivo segun su estado */
+}
+
+.parcela p {
+    font-size: 0.7rem;
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px black;
+    margin-top: 4px;
+}
+
+/* Texto de ayuda */
+#ayuda {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    color: #333;
+}
