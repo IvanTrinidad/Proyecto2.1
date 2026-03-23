@@ -22,16 +22,16 @@ const SEMILLAS = [
         "CerdiPlanta",
         30,
         15,
-        "imagenes/cerdo_1.png",  // IMAGEN: semilla/brote recien plantado
-        "imagenes/cerdo_2.png",  // IMAGEN: zanahoria creciendo
-        "imagenes/cerdo_3.png"   // IMAGEN: zanahoria madura
+        "imagenes/Cerdo_1.png",  // IMAGEN: semilla/brote recien plantado
+        "imagenes/Cerdo_2.png",  // IMAGEN: zanahoria creciendo
+        "imagenes/Cerdo_3.png"   // IMAGEN: zanahoria madura
     ),
     new Semilla(
         "VaquiPlanta",
         60,
         30,
-        "imagenes/vaca_1.png",     // IMAGEN: semilla/brote recien plantado
-        "imagenes/vaca_2.png",     // IMAGEN: tomate creciendo
-        "imagenes/vaca_3.png"      // IMAGEN: tomate maduro
+        "imagenes/Vaca_1.png",     // IMAGEN: semilla/brote recien plantado
+        "imagenes/Vaca_2.png",     // IMAGEN: tomate creciendo
+        "imagenes/Vaca_3.png"      // IMAGEN: tomate maduro
     )
 ];
