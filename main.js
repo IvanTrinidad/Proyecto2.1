@@ -149,8 +149,8 @@ function empezarPartida() {
     ];
 
     // Semillas iniciales para poder probar
-    granjero.agregarInventario("Zanahoria", 3);
-    granjero.agregarInventario("Tomate", 2);
+    granjero.agregarInventario("CerdiPlanta", 3);
+    granjero.agregarInventario("VaquiPlanta", 2);
 
     iniciarJuego();
 }
@@ -407,8 +407,8 @@ function clicEnParcela(indice) {
 // ============================================================
 
 function recargarSemillas() {
-    granjero.agregarInventario("Zanahoria", 3);
-    granjero.agregarInventario("Tomate", 2);
+    granjero.agregarInventario("CerdiPlanta", 3);
+    granjero.agregarInventario("VaquiPlanta", 2);
     pintarInventario();
 }
 

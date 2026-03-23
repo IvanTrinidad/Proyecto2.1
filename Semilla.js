@@ -19,19 +19,19 @@ class Semilla {
 // Las dos semillas disponibles en Fase 1 (hardcodeadas)
 const SEMILLAS = [
     new Semilla(
-        "Zanahoria",
+        "CerdiPlanta",
         30,
         15,
-        "Captura de pantalla 2026-01-25 163036.png",  // IMAGEN: semilla/brote recien plantado
-        "Captura de pantalla 2026-01-25 163630.png",  // IMAGEN: zanahoria creciendo
-        "Captura de pantalla 2026-01-25 163702.png"   // IMAGEN: zanahoria madura
+        "imagenes/cerdo_1.png",  // IMAGEN: semilla/brote recien plantado
+        "imagenes/cerdo_2.png",  // IMAGEN: zanahoria creciendo
+        "imagenes/cerdo_3.png"   // IMAGEN: zanahoria madura
     ),
     new Semilla(
-        "Tomate",
+        "VaquiPlanta",
         60,
         30,
-        "img/tomate-fase1.png",     // IMAGEN: semilla/brote recien plantado
-        "img/tomate-fase2.png",     // IMAGEN: tomate creciendo
-        "img/tomate-fase3.png"      // IMAGEN: tomate maduro
+        "imagenes/vaca_1.png",     // IMAGEN: semilla/brote recien plantado
+        "imagenes/vaca_2.png",     // IMAGEN: tomate creciendo
+        "imagenes/vaca_3.png"      // IMAGEN: tomate maduro
     )
 ];

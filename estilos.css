@@ -245,8 +245,8 @@ button:disabled {
 }
 
 .item-inv img {
-    width: 28px;
-    height: 28px;
+    width: 48px;
+    height: 48px;
     object-fit: contain;
     background: #f0f0f0;
     border-radius: 4px;
@@ -281,7 +281,7 @@ button:disabled {
     gap: 14px;
     overflow-y: auto;
     /* IMAGEN: fondo del terreno - foto de granja con animales y plantas */
-    background-image: url(fondo_terreno.png);
+    background-image: url(imagenes/fondo_terreno.png);
     background-size: cover;
     background-position: center;
 }
@@ -295,8 +295,8 @@ button:disabled {
 
 /* Cuadricula */
 #cuadricula {
-    display: grid;
-    gap: 10px;
+    display:grid;
+    gap: 75px;
     background: rgba(255, 255, 255, 0.2);
     padding: 15px;
     border-radius: 12px;
@@ -304,8 +304,8 @@ button:disabled {
 
 /* Parcelas */
 .parcela {
-    width: 110px;
-    height: 110px;
+    width: 150px;
+    height: 150px;
     background: rgba(139, 90, 43, 0.8);
     border: 3px solid #5c3317;
     border-radius: 8px;
@@ -327,8 +327,8 @@ button:disabled {
 }
 
 .parcela img {
-    width: 60px;
-    height: 60px;
+    width: 125px;
+    height: 125px;
     object-fit: contain;
     /* IMAGEN: imagen del cultivo segun su estado */
 }
