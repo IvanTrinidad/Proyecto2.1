@@ -22,7 +22,7 @@ const SEMILLAS = [
         "CerdiPlanta",
         30,
         15,
-        "imagenes/Cerdo_1.png",  // IMAGEN: semilla/brote recien plantado
+        "imagenes/cerdo_1.png",  // IMAGEN: semilla/brote recien plantado
         "imagenes/Cerdo_2.png",  // IMAGEN: zanahoria creciendo
         "imagenes/Cerdo_3.png"   // IMAGEN: zanahoria madura
     ),
