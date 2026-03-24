@@ -30,7 +30,11 @@ body {
 #pantalla-config {
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to bottom, #1e4d10, #3a7d2c);
+    background-image: url(imagenes/fondo_menu.png);
+    
+    background-size:auto;
+  
+
 }
 
 #pantalla-inicio.activa,
