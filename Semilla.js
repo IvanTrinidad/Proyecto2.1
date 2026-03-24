@@ -57,5 +57,13 @@ const SEMILLAS = [
         "imagenes/Vaca_1.png",  // Fase 1: recien plantada
         "imagenes/Vaca_2.png",  // Fase 2: creciendo
         "imagenes/Vaca_3.png"   // Fase 3: madura, lista para recolectar
+    ),
+     new Semilla(
+        "GatiPlanta",          // Nombre identificador
+        120,                     // Madura en 60 segundos (el doble que la CerdiPlanta)
+        90,                     // Da 30 monedas al recolectar (el doble de beneficio)
+        "imagenes/Gato_1.png",  // Fase 1: recien plantada
+        "imagenes/Gato_2.png",  // Fase 2: creciendo
+        "imagenes/Gato_3.png"   // Fase 3: madura, lista para recolectar
     )
 ];

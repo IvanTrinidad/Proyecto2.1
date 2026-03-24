@@ -3,6 +3,7 @@
 // PROPOSITO: Logica principal del juego y manejo del DOM.
 // Es el archivo que une todas las clases con la interfaz HTML.
 // Se encarga de:
+//   - Mostrar un tutorial a l iniciar el juego por primera vez
 //   - Asignar eventos a los botones
 //   - Navegar entre pantallas
 //   - Validar el formulario de configuracion
@@ -32,12 +33,21 @@ let intervalo = null;           // Referencia al setInterval del bucle de juego
 // ============================================================
 
 document.addEventListener("DOMContentLoaded", function() {
-
+        
     // Si no hay partida guardada, desactivamos los botones que la necesitan
     if (!Guardado.existe()) {
         document.getElementById("btn-continuar").disabled = true;
         document.getElementById("btn-eliminar").disabled = true;
     }
+    // Este tutorial solo se presentara una vez , como un mensaje emergente por defecto en la pantalla
+    if (!localStorage.getItem("tutorial")) {
+    alert("Bienvenido a Plantimales la granja donde nada es como lo crees \n\n- Selecciona una semilla\n- Haz clic en una parcela\n- Espera a que crezca\n- Recolecta para ganar dinero");
+
+    localStorage.setItem("tutorial", "true");
+
+    
+}
+
 
     // Asignamos una funcion a cada boton usando addEventListener.
     // Esto es mejor que usar onclick en el HTML porque separa
@@ -56,6 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("btn-guardar").addEventListener("click", guardarPartida);
     document.getElementById("btn-menu").addEventListener("click", volverAlMenu);
     document.getElementById("btn-recargar").addEventListener("click", recargarSemillas);
+     
 });
 
 // ============================================================
@@ -242,6 +253,7 @@ function empezarPartida() {
     // Damos semillas iniciales al jugador para que pueda empezar a jugar
     granjero.agregarInventario("CerdiPlanta", 3); // 3 CerdiPlantas
     granjero.agregarInventario("VaquiPlanta", 2); // 2 VaquiPlantas
+     granjero.agregarInventario("GatiPlanta", 1); // 1 GatiPlantas
 
     iniciarJuego();
 }
@@ -529,6 +541,16 @@ function pintarTerreno() {
         div.addEventListener("click", function() {
             clicEnParcela(indice);
         });
+        
+        // Con click derecho se reinicia la parcela
+        div.addEventListener("contextmenu", function(event) {
+        event.preventDefault();
+
+        if (!parcela.estaVacia()) {
+            parcela.plantar(semillaSeleccionada);
+            pintarTerreno();
+        }
+});
 
         cuadricula.appendChild(div);
     }
@@ -548,9 +570,13 @@ function pintarTerreno() {
 // PARAMETROS:
 //   - indice: posicion de la parcela en el array terreno.parcelas
 // ----------------------------------------------------------
+
+
+// Si le das clock derecho a una parcela esta se reiniciara  
+   
 function clicEnParcela(indice) {
     let parcela = terreno.parcelas[indice];
-
+    
     if (parcela.estaVacia()) {
         // CASO 1: La parcela esta vacia, intentamos plantar
 
@@ -558,9 +584,10 @@ function clicEnParcela(indice) {
             alert("Selecciona primero una semilla del inventario.");
             return;
         }
-
+        
         // Quitamos una semilla del inventario (devuelve false si no habia)
         let quito = granjero.quitarInventario(semillaSeleccionada.nombre);
+        
         if (!quito) {
             alert("No te quedan semillas de ese tipo.");
             semillaSeleccionada = null;
@@ -568,8 +595,18 @@ function clicEnParcela(indice) {
             return;
         }
 
-        // Plantamos la semilla en la parcela
+        // Hay una probabilidad de fallar del (35%) al plantar
+        let prob = Math.random();
+
+        if (prob < 0.35) {
+            alert("La plantación ha fallado");
+            pintarInventario();
+            return;
+        }
+
+        // Si no falla, planta normal
         parcela.plantar(semillaSeleccionada);
+        
 
         // Actualizamos la pantalla
         pintarBarra();
@@ -581,6 +618,7 @@ function clicEnParcela(indice) {
 
         let nombreFruto = parcela.semilla.nombre;
         let monedas = parcela.semilla.precioVenta;
+        
 
         // Sumamos el dinero al granjero
         granjero.dinero += monedas;
@@ -594,7 +632,7 @@ function clicEnParcela(indice) {
         pintarBarra();
         pintarTerreno();
 
-    } else {
+    }else {
         // CASO 3: La parcela tiene un cultivo que todavia no ha madurado
         alert("No esta listo todavia. Quedan " + parcela.segundosRestantes() + " segundos.");
     }
@@ -609,6 +647,7 @@ function clicEnParcela(indice) {
 function recargarSemillas() {
     granjero.agregarInventario("CerdiPlanta", 3);
     granjero.agregarInventario("VaquiPlanta", 2);
+    granjero.agregarInventario("GatiPlanta", 1);
     pintarInventario(); // Actualizamos el inventario en pantalla
 }
 
