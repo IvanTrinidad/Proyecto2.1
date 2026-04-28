@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="datos.xsd">
+
+    <!-- ============================================================
+         SEMILLAS: cada semilla tiene nombre, precio de compra,
+         precio de venta, tiempo de maduracion y rutas de imagenes
+         ============================================================ -->
+    <semillas>
+
+        <semilla>
+            <nombre>CerdiPlanta</nombre>
+            <tipo>animal</tipo>
+            <precioCompra>8</precioCompra>
+            <precioVenta>15</precioVenta>
+            <segundosMaduracion>30</segundosMaduracion>
+            <imgFase1>imagenes/cerdo_1.png</imgFase1>
+            <imgFase2>imagenes/Cerdo_2.png</imgFase2>
+            <imgFase3>imagenes/Cerdo_3.png</imgFase3>
+        </semilla>
+
+        <semilla>
+            <nombre>VaquiPlanta</nombre>
+            <tipo>animal</tipo>
+            <precioCompra>15</precioCompra>
+            <precioVenta>30</precioVenta>
+            <segundosMaduracion>60</segundosMaduracion>
+            <imgFase1>imagenes/Vaca_1.png</imgFase1>
+            <imgFase2>imagenes/Vaca_2.png</imgFase2>
+            <imgFase3>imagenes/Vaca_3.png</imgFase3>
+        </semilla>
+
+        <semilla>
+            <nombre>GatiPlanta</nombre>
+            <tipo>animal</tipo>
+            <precioCompra>40</precioCompra>
+            <precioVenta>90</precioVenta>
+            <segundosMaduracion>120</segundosMaduracion>
+            <imgFase1>imagenes/Gato_1.png</imgFase1>
+            <imgFase2>imagenes/Gato_2.png</imgFase2>
+            <imgFase3>imagenes/Gato_3.png</imgFase3>
+        </semilla>
+
+        <semilla>
+            <nombre>PolliPlanta</nombre>
+            <tipo>ave</tipo>
+            <precioCompra>20</precioCompra>
+            <precioVenta>45</precioVenta>
+            <segundosMaduracion>75</segundosMaduracion>
+            <imgFase1>imagenes/Pollo_1.png</imgFase1>
+            <imgFase2>imagenes/Pollo_2.png</imgFase2>
+            <imgFase3>imagenes/Pollo_3.png</imgFase3>
+        </semilla>
+
+        <semilla>
+            <nombre>CaraPlanta</nombre>
+            <tipo>insecto</tipo>
+            <precioCompra>60</precioCompra>
+            <precioVenta>130</precioVenta>
+            <segundosMaduracion>180</segundosMaduracion>
+            <imgFase1>imagenes/Caracol_1.png</imgFase1>
+            <imgFase2>imagenes/Caracol_2.png</imgFase2>
+            <imgFase3>imagenes/Caracol_3.png</imgFase3>
+        </semilla>
+
+    </semillas>
+
+    <!-- ============================================================
+         HERRAMIENTAS: cada herramienta tiene 3 niveles con
+         su coste de mejora y el efecto que aplica
+         ============================================================ -->
+    <herramientas>
+
+        <herramienta>
+            <nombre>Azada</nombre>
+            <descripcion>Mejora la calidad del cultivo</descripcion>
+            <niveles>
+                <nivel id="1">
+                    <costeUpgrade>0</costeUpgrade>
+                    <bonificacion>0</bonificacion>
+                    <descripcionNivel>Sin mejora</descripcionNivel>
+                </nivel>
+                <nivel id="2">
+                    <costeUpgrade>50</costeUpgrade>
+                    <bonificacion>10</bonificacion>
+                    <descripcionNivel>+10% precio de venta</descripcionNivel>
+                </nivel>
+                <nivel id="3">
+                    <costeUpgrade>120</costeUpgrade>
+                    <bonificacion>25</bonificacion>
+                    <descripcionNivel>+25% precio de venta</descripcionNivel>
+                </nivel>
+            </niveles>
+        </herramienta>
+
+        <herramienta>
+            <nombre>Regadera</nombre>
+            <descripcion>Reduce el tiempo de maduracion</descripcion>
+            <niveles>
+                <nivel id="1">
+                    <costeUpgrade>0</costeUpgrade>
+                    <bonificacion>0</bonificacion>
+                    <descripcionNivel>Sin mejora</descripcionNivel>
+                </nivel>
+                <nivel id="2">
+                    <costeUpgrade>60</costeUpgrade>
+                    <bonificacion>15</bonificacion>
+                    <descripcionNivel>-15% tiempo maduracion</descripcionNivel>
+                </nivel>
+                <nivel id="3">
+                    <costeUpgrade>150</costeUpgrade>
+                    <bonificacion>30</bonificacion>
+                    <descripcionNivel>-30% tiempo maduracion</descripcionNivel>
+                </nivel>
+            </niveles>
+        </herramienta>
+
+        <herramienta>
+            <nombre>Hoz</nombre>
+            <descripcion>Permite obtener mas frutos</descripcion>
+            <niveles>
+                <nivel id="1">
+                    <costeUpgrade>0</costeUpgrade>
+                    <bonificacion>0</bonificacion>
+                    <descripcionNivel>Sin mejora</descripcionNivel>
+                </nivel>
+                <nivel id="2">
+                    <costeUpgrade>70</costeUpgrade>
+                    <bonificacion>1</bonificacion>
+                    <descripcionNivel>+1 unidad extra al recolectar</descripcionNivel>
+                </nivel>
+                <nivel id="3">
+                    <costeUpgrade>180</costeUpgrade>
+                    <bonificacion>2</bonificacion>
+                    <descripcionNivel>+2 unidades extra al recolectar</descripcionNivel>
+                </nivel>
+            </niveles>
+        </herramienta>
+
+    </herramientas>
+
+</datos>

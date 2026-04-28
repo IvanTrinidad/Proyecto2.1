@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Plantimales — Tienda</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <!-- =====================================================
+         PANTALLA: TIENDA
+         ===================================================== -->
+    <div id="pantalla-tienda" class="pantalla activa">
+
+        <div id="tienda-barra">
+            <div class="tienda-barra-left">
+                <span class="tienda-titulo-barra">&#128722; Tienda de Plantimales</span>
+            </div>
+            <div class="tienda-barra-center">
+                <span class="barra-chip barra-chip-dorado">
+                    <span class="chip-icono">&#129779;</span>
+                    <strong id="tienda-dinero">0</strong> monedas
+                </span>
+            </div>
+            <div class="tienda-barra-right">
+                <button id="btn-tienda-volver" class="btn-barra btn-barra-gris">&#8592; Volver al juego</button>
+            </div>
+        </div>
+
+        <div id="tienda-cuerpo">
+
+            <!-- COLUMNA 1: Comprar -->
+            <div class="tienda-seccion">
+                <div class="tienda-seccion-header tienda-header-verde">
+                    <h3>&#127807; Comprar Semillas</h3>
+                </div>
+                <div id="tienda-filtro">
+                    <div class="filtro-fila">
+                        <label class="filtro-label">Filtrar por:</label>
+                        <select id="filtro-criterio" class="filtro-select">
+                            <option value="tipo">Tipo de cultivo</option>
+                            <option value="precioMax">Precio compra maximo</option>
+                            <option value="tiempoMax">Tiempo maduracion max (s)</option>
+                            <option value="ventaMin">Precio venta minimo</option>
+                        </select>
+                    </div>
+                    <div class="filtro-fila">
+                        <input type="text" id="filtro-valor" class="filtro-input" placeholder="Escribe un valor...">
+                        <button id="btn-filtrar"        class="btn-filtro btn-filtro-aplicar">&#128269; Filtrar</button>
+                        <button id="btn-limpiar-filtro" class="btn-filtro btn-filtro-limpiar">&#10005; Ver todas</button>
+                    </div>
+                    <p class="filtro-ayuda">Tipos disponibles: <em>animal</em>, <em>ave</em>, <em>insecto</em></p>
+                </div>
+                <div id="tienda-compra-lista"></div>
+            </div>
+
+            <!-- COLUMNA 2: Vender -->
+            <div class="tienda-seccion">
+                <div class="tienda-seccion-header tienda-header-naranja">
+                    <h3>&#129186; Vender Cultivos</h3>
+                    <p class="seccion-desc">Cultivos recolectados listos para vender</p>
+                </div>
+                <div id="tienda-venta-lista"></div>
+            </div>
+
+            <!-- COLUMNA 3: Mejorar -->
+            <div class="tienda-seccion">
+                <div class="tienda-seccion-header tienda-header-azul">
+                    <h3>&#11014; Mejorar Herramientas</h3>
+                    <p class="seccion-desc">Mejora tus herramientas para producir mas</p>
+                </div>
+                <div id="tienda-mejoras-lista"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="Granjero.js?v=2"></script>
+    <script src="Herramienta.js?v=2"></script>
+    <script src="Semilla.js?v=2"></script>
+    <script src="Guardado.js?v=2"></script>
+    <script src="DatosXML.js?v=2"></script>
+    <script src="Tienda.js?v=2"></script>
+    <script src="tienda-init.js?v=2"></script>
+
+</body>
+</html>

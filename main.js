@@ -33,21 +33,37 @@ let intervalo = null;           // Referencia al setInterval del bucle de juego
 // ============================================================
 
 document.addEventListener("DOMContentLoaded", function() {
-        
+
+    // Cargamos primero el XML. Nada arranca hasta que los datos esten listos.
+    // DatosXML.js guarda internamente el xmlDoc parseado, lo recuperamos
+    // con getXmlDoc() para pasarselo a la tienda (necesario para XPath).
+    cargarDatosXML()
+        .then(function() {
+            inicializarTienda(getXmlDoc());
+            _inicializarUI();
+        })
+        .catch(function(err) {
+            alert("Error al cargar datos del juego: " + err.message);
+        });
+});
+
+// ----------------------------------------------------------
+// FUNCION: _inicializarUI
+// PROPOSITO: Asigna todos los eventos de la interfaz.
+// Se llama solo despues de que el XML haya cargado.
+// ----------------------------------------------------------
+function _inicializarUI() {
+
     // Si no hay partida guardada, desactivamos los botones que la necesitan
     if (!Guardado.existe()) {
         document.getElementById("btn-continuar").disabled = true;
         document.getElementById("btn-eliminar").disabled = true;
     }
-    // Este tutorial solo se presentara una vez , como un mensaje emergente por defecto en la pantalla
+    // Este tutorial solo se presentara una vez, como un mensaje emergente por defecto en la pantalla
     if (!localStorage.getItem("tutorial")) {
-    alert("Bienvenido a Plantimales la granja donde nada es como lo crees \n\n- Selecciona una semilla\n- Haz clic en una parcela\n- Espera a que crezca\n- Recolecta para ganar dinero");
-
-    localStorage.setItem("tutorial", "true");
-
-    
-}
-
+        alert("Bienvenido a Plantimales la granja donde nada es como lo crees \n\n- Selecciona una semilla\n- Haz clic en una parcela\n- Espera a que crezca\n- Recolecta para ganar dinero");
+        localStorage.setItem("tutorial", "true");
+    }
 
     // Asignamos una funcion a cada boton usando addEventListener.
     // Esto es mejor que usar onclick en el HTML porque separa
@@ -66,8 +82,13 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("btn-guardar").addEventListener("click", guardarPartida);
     document.getElementById("btn-menu").addEventListener("click", volverAlMenu);
     document.getElementById("btn-recargar").addEventListener("click", recargarSemillas);
-     
-});
+    document.getElementById("btn-tienda").addEventListener("click", irATienda);
+
+    // Botones de la pantalla de tienda
+    document.getElementById("btn-tienda-volver").addEventListener("click", volverAlJuego);
+    document.getElementById("btn-filtrar").addEventListener("click", filtrarSemillasXPath);
+    document.getElementById("btn-limpiar-filtro").addEventListener("click", limpiarFiltro);
+}
 
 // ============================================================
 // NAVEGACION ENTRE PANTALLAS
@@ -144,6 +165,37 @@ function volverAlMenu() {
         intervalo = null;
     }
     mostrarInicio();
+}
+
+// ----------------------------------------------------------
+// FUNCION: irATienda
+// PROPOSITO: Va a la pantalla de tienda desde la pantalla
+// de juego. Pausa el bucle mientras el jugador esta en la tienda.
+// ----------------------------------------------------------
+function irATienda() {
+    if (intervalo !== null) {
+        clearInterval(intervalo);
+        intervalo = null;
+    }
+    mostrarTienda();
+}
+
+// ----------------------------------------------------------
+// FUNCION: volverAlJuego
+// PROPOSITO: Vuelve a la pantalla de juego desde la tienda.
+// Reactiva el bucle de juego y repinta el estado actual.
+// ----------------------------------------------------------
+function volverAlJuego() {
+    mostrarPantalla("pantalla-juego");
+    pintarBarra();
+    pintarHerramientas();
+    pintarInventario();
+    pintarTerreno();
+    if (intervalo !== null) clearInterval(intervalo);
+    intervalo = setInterval(function() {
+        terreno.actualizar();
+        pintarTerreno();
+    }, 1000);
 }
 
 // ============================================================
@@ -279,6 +331,7 @@ function continuarPartida() {
     // Reconstruimos el objeto Granjero con los datos guardados
     granjero = new Granjero(datos.granjero.nombre, datos.granjero.nombreGranja, datos.granjero.dinero);
     granjero.inventario = datos.granjero.inventario; // Restauramos el inventario directamente
+    granjero.cultivos = datos.granjero.cultivos || [];  // Restauramos los cultivos pendientes de vender
 
     // Reconstruimos el Terreno con el mismo numero de parcelas que tenia
     terreno = new Terreno(datos.parcelas.length);
@@ -604,8 +657,12 @@ function clicEnParcela(indice) {
             return;
         }
 
-        // Si no falla, planta normal
-        parcela.plantar(semillaSeleccionada);
+        // Si no falla, planta aplicando bonificacion de Regadera al tiempo de maduracion
+        // Creamos una copia temporal de la semilla con el tiempo reducido para no modificar
+        // el objeto original que esta en el array SEMILLAS
+        let semillaConRegadera = Object.assign(Object.create(Object.getPrototypeOf(semillaSeleccionada)), semillaSeleccionada);
+        semillaConRegadera.segundosMaduracion = aplicarBonificacionRegadera(semillaSeleccionada, herramientas);
+        parcela.plantar(semillaConRegadera);
         
 
         // Actualizamos la pantalla
@@ -617,16 +674,18 @@ function clicEnParcela(indice) {
         // CASO 2: La parcela tiene un cultivo maduro, lo recolectamos
 
         let nombreFruto = parcela.semilla.nombre;
-        let monedas = parcela.semilla.precioVenta;
-        
+        // La Hoz permite obtener unidades extra al recolectar
+        let extraHoz = aplicarBonificacionHoz(herramientas);
+        let unidades = 1 + extraHoz;
 
-        // Sumamos el dinero al granjero
-        granjero.dinero += monedas;
+        // Anadimos el cultivo recolectado al almacen de venta (no al inventario de semillas)
+        granjero.agregarCultivo(nombreFruto, unidades);
 
         // Limpiamos la parcela dejandola vacia de nuevo
         parcela.limpiar();
 
-        alert("Has recolectado " + nombreFruto + " y ganado " + monedas + " monedas.");
+        let msgHoz = extraHoz > 0 ? " (+" + extraHoz + " extra por Hoz)" : "";
+        alert("Has recolectado " + unidades + "x " + nombreFruto + msgHoz + ". Vendelo en la tienda.");
 
         // Actualizamos la pantalla
         pintarBarra();

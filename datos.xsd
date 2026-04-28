@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!-- ============================================================
+         ESQUEMA XSD para datos.xml del juego Plantimales
+         Valida la estructura de semillas y herramientas
+         ============================================================ -->
+
+    <!-- Elemento raiz -->
+    <xs:element name="datos">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="semillas" type="tipSemillas"/>
+                <xs:element name="herramientas" type="tipHerramientas"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ============================================================
+         SEMILLAS
+         ============================================================ -->
+    <xs:complexType name="tipSemillas">
+        <xs:sequence>
+            <xs:element name="semilla" type="tipSemilla" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="tipSemilla">
+        <xs:sequence>
+            <xs:element name="nombre"             type="xs:string"/>
+            <xs:element name="tipo"               type="tipTipoSemilla"/>
+            <xs:element name="precioCompra"       type="tipPrecioPositivo"/>
+            <xs:element name="precioVenta"        type="tipPrecioPositivo"/>
+            <xs:element name="segundosMaduracion" type="tipSegundos"/>
+            <xs:element name="imgFase1"           type="xs:string"/>
+            <xs:element name="imgFase2"           type="xs:string"/>
+            <xs:element name="imgFase3"           type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Tipos permitidos de semilla -->
+    <xs:simpleType name="tipTipoSemilla">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="animal"/>
+            <xs:enumeration value="ave"/>
+            <xs:enumeration value="insecto"/>
+            <xs:enumeration value="planta"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Precio: entero mayor que 0 -->
+    <xs:simpleType name="tipPrecioPositivo">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Segundos de maduracion: entre 5 y 3600 -->
+    <xs:simpleType name="tipSegundos">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="5"/>
+            <xs:maxInclusive value="3600"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- ============================================================
+         HERRAMIENTAS
+         ============================================================ -->
+    <xs:complexType name="tipHerramientas">
+        <xs:sequence>
+            <xs:element name="herramienta" type="tipHerramienta" minOccurs="3" maxOccurs="3"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="tipHerramienta">
+        <xs:sequence>
+            <xs:element name="nombre"      type="xs:string"/>
+            <xs:element name="descripcion" type="xs:string"/>
+            <xs:element name="niveles"     type="tipNiveles"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="tipNiveles">
+        <xs:sequence>
+            <xs:element name="nivel" type="tipNivel" minOccurs="3" maxOccurs="3"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="tipNivel">
+        <xs:sequence>
+            <xs:element name="costeUpgrade"      type="xs:nonNegativeInteger"/>
+            <xs:element name="bonificacion"      type="xs:nonNegativeInteger"/>
+            <xs:element name="descripcionNivel"  type="xs:string"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="tipIdNivel" use="required"/>
+    </xs:complexType>
+
+    <!-- El id de nivel solo puede ser 1, 2 o 3 -->
+    <xs:simpleType name="tipIdNivel">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="3"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

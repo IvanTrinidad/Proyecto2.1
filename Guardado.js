@@ -32,7 +32,8 @@ class Guardado {
                 nombre: granjero.nombre,
                 nombreGranja: granjero.nombreGranja,
                 dinero: granjero.dinero,
-                inventario: granjero.inventario // Array con las semillas que tiene
+                inventario: granjero.inventario, // Array con las semillas que tiene
+                cultivos: granjero.cultivos       // Array con los cultivos recolectados pendientes de vender
             },
 
             // De cada herramienta guardamos nombre, descripcion y nivel

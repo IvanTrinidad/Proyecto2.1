@@ -1,3 +1,28 @@
+/* ============================================================
+   VARIABLES Y RESET GLOBAL
+   ============================================================ */
+:root {
+    --verde-oscuro:  #2a5c1a;
+    --verde-medio:   #3a7d2c;
+    --verde-claro:   #5a9e48;
+    --amarillo:      #f0c040;
+    --dorado:        #d4a017;
+    --naranja:       #e67e22;
+    --rojo:          #c0392b;
+    --marron-oscuro: #3d1f00;
+    --marron-medio:  #6b3a1f;
+    --marron-claro:  #a0784a;
+    --crema:         #fdf6e3;
+    --crema-oscura:  #f5e6c8;
+    --azul:          #2980b9;
+    --morado:        #8e44ad;
+    --gris:          #7f8c8d;
+    --sombra:        0 4px 20px rgba(0,0,0,0.3);
+    --radio:         12px;
+    --fuente-titulo: 'Luckiest Guy', cursive;
+    --fuente-cuerpo: 'Nunito', sans-serif;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -5,17 +30,19 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: #3a7d2c;
+    font-family: var(--fuente-cuerpo);
+    background: var(--verde-oscuro);
+    overflow: hidden;
 }
 
 /* ============================================================
-   PANTALLAS
+   SISTEMA DE PANTALLAS
    ============================================================ */
-
 .pantalla {
     display: none;
-    min-height: 100vh;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
 }
 
 .pantalla.activa {
@@ -23,333 +50,838 @@ body {
 }
 
 /* ============================================================
-   MENU INICIO Y CONFIGURACION (pantallas centradas)
+   DECORACIONES COMPARTIDAS (nubes y sol)
    ============================================================ */
-
-#pantalla-inicio,
-#pantalla-config {
-    align-items: center;
-    justify-content: center;
-    background-image: url(imagenes/fondo_menu.png);
-    
-    background-size:auto;
-  
-
+.deco {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    opacity: 0.55;
 }
 
-#pantalla-inicio.activa,
+.deco-nube {
+    font-size: 5rem;
+    color: white;
+    animation: flotar 6s ease-in-out infinite;
+}
+
+.deco-nube-1 { top: 6%;  left: 5%;  animation-delay: 0s;   font-size: 4rem; }
+.deco-nube-2 { top: 10%; right: 8%; animation-delay: 2.5s; font-size: 6rem; }
+.deco-nube-3 { top: 3%;  left: 40%; animation-delay: 1.2s; font-size: 3.5rem; }
+
+.deco-sol {
+    font-size: 5rem;
+    top: 4%;
+    right: 3%;
+    animation: girar-sol 20s linear infinite;
+}
+
+@keyframes flotar {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-14px); }
+}
+
+@keyframes girar-sol {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+/* ============================================================
+   PANTALLA 1 — MENU DE INICIO
+   ============================================================ */
+#pantalla-inicio {
+    position: relative;
+    background-image: url(imagenes/fondo_menu.png);
+    background-size: cover;
+    background-position: center;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+#pantalla-inicio.activa {
+    display: flex;
+}
+
+/* Capa oscura sobre el fondo */
+#pantalla-inicio::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(30,70,10,0.55) 0%, rgba(10,30,5,0.7) 100%);
+    z-index: 0;
+}
+
+.inicio-contenido {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    animation: entrada 0.6s ease-out both;
+}
+
+@keyframes entrada {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Logo */
+.logo-bloque {
+    text-align: center;
+    text-shadow: 2px 4px 10px rgba(0,0,0,0.6);
+}
+
+.logo-icono {
+    font-size: 4.5rem;
+    line-height: 1;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+    animation: saltar 1.8s ease-in-out infinite;
+}
+
+@keyframes saltar {
+    0%, 100% { transform: translateY(0) scale(1); }
+    45%       { transform: translateY(-18px) scale(1.08); }
+    60%       { transform: translateY(-12px) scale(1.05); }
+}
+
+.logo-titulo {
+    font-family: var(--fuente-titulo);
+    font-size: 4rem;
+    color: var(--amarillo);
+    letter-spacing: 3px;
+    -webkit-text-stroke: 2px var(--marron-oscuro);
+    line-height: 1;
+    margin-top: 6px;
+}
+
+.logo-subtitulo {
+    font-size: 1rem;
+    color: var(--crema-oscura);
+    font-weight: 600;
+    margin-top: 6px;
+    letter-spacing: 0.5px;
+}
+
+/* Tarjeta de botones */
+.inicio-card {
+    background: rgba(253, 246, 227, 0.95);
+    border-radius: 20px;
+    padding: 28px 36px;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: var(--sombra), inset 0 1px 0 rgba(255,255,255,0.8);
+    border: 3px solid var(--dorado);
+}
+
+.btn-inicio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 13px 16px;
+    border: none;
+    border-radius: 10px;
+    font-family: var(--fuente-cuerpo);
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.12s, filter 0.12s, box-shadow 0.12s;
+    text-decoration: none;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.25);
+    letter-spacing: 0.3px;
+}
+
+.btn-inicio:hover:not(:disabled) {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+    box-shadow: 0 6px 0 rgba(0,0,0,0.25);
+}
+
+.btn-inicio:active:not(:disabled) {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 rgba(0,0,0,0.25);
+}
+
+.btn-inicio:disabled {
+    opacity: 0.38;
+    cursor: not-allowed;
+}
+
+.btn-verde   { background: var(--verde-medio); color: white; }
+.btn-amarillo{ background: #e8a020;            color: white; }
+.btn-rojo    { background: var(--rojo);        color: white; }
+.btn-oscuro  { background: #2c2c2c;            color: white; }
+
+.inicio-version {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   PANTALLA 2 — CONFIGURACION
+   ============================================================ */
+#pantalla-config {
+    position: relative;
+    background-image: url(imagenes/fondo_menu.png);
+    background-size: cover;
+    background-position: center;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
 #pantalla-config.activa {
     display: flex;
 }
 
-.caja-centro {
-    background: white;
-    padding: 40px 50px;
-    border-radius: 12px;
-    width: 340px;
+#pantalla-config::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(30,70,10,0.6) 0%, rgba(10,30,5,0.72) 100%);
+    z-index: 0;
+}
+
+.config-contenido {
+    position: relative;
+    z-index: 1;
+    animation: entrada 0.5s ease-out both;
+}
+
+.config-card {
+    background: var(--crema);
+    border-radius: 20px;
+    width: 400px;
+    overflow: hidden;
+    box-shadow: var(--sombra);
+    border: 3px solid var(--dorado);
+}
+
+.config-header {
+    background: linear-gradient(135deg, var(--verde-oscuro), var(--verde-medio));
+    padding: 22px 28px 18px;
     text-align: center;
+    color: white;
 }
 
-.caja-centro h1 {
-    font-size: 2.2rem;
-    color: #2d6a1f;
-    margin-bottom: 5px;
-}
-
-.caja-centro h2 {
-    font-size: 1.5rem;
-    color: #2d6a1f;
-    margin-bottom: 20px;
-}
-
-.subtitulo {
-    color: #888;
-    margin-bottom: 25px;
-    font-style: italic;
-}
-
-/* Botones del menu inicio */
-.caja-centro button,
-.caja-centro a {
+.config-icono {
+    font-size: 2.8rem;
     display: block;
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    cursor: pointer;
-    text-decoration: none;
-    text-align: center;
+    margin-bottom: 4px;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
 }
 
-#btn-nueva     { background: #3a7d2c; color: white; }
-#btn-continuar { background: #5a9e48; color: white; }
-#btn-eliminar  { background: #c0392b; color: white; }
-#btn-github    { background: #333;    color: white; }
-
-button:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
+.config-header h2 {
+    font-family: var(--fuente-titulo);
+    font-size: 1.9rem;
+    letter-spacing: 2px;
+    color: var(--amarillo);
+    -webkit-text-stroke: 1px var(--marron-oscuro);
 }
 
-/* ============================================================
-   FORMULARIO DE CONFIGURACION
-   ============================================================ */
+.config-desc {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.75);
+    margin-top: 4px;
+    font-weight: 600;
+}
 
+.config-campos {
+    padding: 22px 28px 4px;
+}
+
+/* Campos del formulario */
 .campo {
-    text-align: left;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
 }
 
 .campo label {
-    display: block;
-    font-weight: bold;
-    font-size: 0.9rem;
-    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--marron-oscuro);
+    margin-bottom: 5px;
+}
+
+.campo-icono {
+    font-size: 1rem;
 }
 
 .campo input,
 .campo select {
     width: 100%;
-    padding: 8px 10px;
-    border: 2px solid #ccc;
-    border-radius: 6px;
-    font-size: 0.95rem;
+    padding: 10px 12px;
+    border: 2px solid #d4c4a0;
+    border-radius: 8px;
+    font-family: var(--fuente-cuerpo);
+    font-size: 0.92rem;
+    background: white;
+    color: var(--marron-oscuro);
+    transition: border-color 0.2s;
+    outline: none;
+}
+
+.campo input:focus,
+.campo select:focus {
+    border-color: var(--verde-medio);
+    box-shadow: 0 0 0 3px rgba(58,125,44,0.18);
 }
 
 .campo input.campo-error,
 .campo select.campo-error {
-    border-color: red;
+    border-color: var(--rojo);
+    box-shadow: 0 0 0 3px rgba(192,57,43,0.15);
 }
 
 .error {
-    color: red;
-    font-size: 0.8rem;
+    color: var(--rojo);
+    font-size: 0.78rem;
+    font-weight: 700;
     display: block;
-    min-height: 16px;
+    min-height: 18px;
+    margin-top: 3px;
 }
 
-.botones-fila {
+/* Botones de config */
+.config-botones {
     display: flex;
-    gap: 10px;
-    margin-top: 10px;
+    gap: 12px;
+    padding: 14px 28px 24px;
 }
 
-.botones-fila button {
+.btn-config {
     flex: 1;
-    padding: 10px;
+    padding: 12px;
     border: none;
-    border-radius: 6px;
+    border-radius: 10px;
+    font-family: var(--fuente-cuerpo);
     font-size: 1rem;
+    font-weight: 800;
     cursor: pointer;
+    transition: transform 0.12s, filter 0.12s;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.2);
 }
 
-#btn-volver  { background: #aaa; color: white; }
-#btn-empezar { background: #3a7d2c; color: white; }
+.btn-config:hover { transform: translateY(-2px); filter: brightness(1.08); }
+.btn-config:active { transform: translateY(2px); box-shadow: 0 2px 0 rgba(0,0,0,0.2); }
+
+.btn-config-gris  { background: var(--gris);         color: white; }
+.btn-config-verde { background: var(--verde-medio);   color: white; }
 
 /* ============================================================
-   PANTALLA DE JUEGO
+   PANTALLA 3 — JUEGO PRINCIPAL
    ============================================================ */
-
 #pantalla-juego.activa {
     display: flex;
     flex-direction: column;
 }
 
-/* Barra de informacion */
+/* --- BARRA SUPERIOR --- */
 #barra {
-    background: #1e4d10;
-    color: white;
+    background: linear-gradient(90deg, var(--marron-oscuro) 0%, #2a1200 100%);
     padding: 8px 16px;
     display: flex;
     align-items: center;
-    gap: 20px;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    border-bottom: 3px solid var(--dorado);
+    flex-shrink: 0;
+    min-height: 52px;
+}
+
+.barra-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     flex-wrap: wrap;
 }
 
-#barra button {
-    padding: 6px 14px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9rem;
+.barra-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.88rem;
+    font-weight: 700;
 }
 
-#btn-guardar { background: #e67e22; color: white; margin-left: auto; }
-#btn-menu    { background: #aaa;    color: white; }
+.barra-chip-verde  { background: var(--verde-medio);  color: white; }
+.barra-chip-marron { background: var(--marron-medio);  color: var(--crema-oscura); }
+.barra-chip-dorado { background: var(--dorado);        color: var(--marron-oscuro); }
 
-/* Zona de juego */
+.chip-icono { font-size: 1rem; }
+
+.barra-acciones {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-barra {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 8px;
+    font-family: var(--fuente-cuerpo);
+    font-size: 0.83rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.1s, filter 0.1s;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.3);
+}
+
+.btn-barra:hover  { transform: translateY(-1px); filter: brightness(1.1); }
+.btn-barra:active { transform: translateY(1px); box-shadow: 0 1px 0 rgba(0,0,0,0.3); }
+
+.btn-barra-naranja { background: var(--naranja); color: white; }
+.btn-barra-azul    { background: var(--azul);    color: white; }
+.btn-barra-gris    { background: var(--gris);    color: white; }
+.btn-barra-morado  { background: var(--morado);  color: white; font-size: 0.75rem; }
+
+/* --- ZONA DE JUEGO --- */
 #zona-juego {
     display: flex;
     flex: 1;
+    overflow: hidden;
 }
 
-/* Panel lateral */
+/* --- PANEL LATERAL --- */
 #panel-lateral {
-    width: 190px;
-    background: rgba(255, 255, 255, 0.93);
-    padding: 12px;
-    border-right: 3px solid #2d6a1f;
+    width: 195px;
+    background: linear-gradient(180deg, #fdf6e3 0%, #f5e0b0 100%);
+    border-right: 3px solid var(--dorado);
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 0;
     overflow-y: auto;
+    flex-shrink: 0;
 }
 
-#panel-lateral h3 {
-    color: #2d6a1f;
-    font-size: 0.9rem;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 4px;
-    margin-top: 8px;
+.panel-seccion {
+    padding: 10px 10px 6px;
+    border-bottom: 2px dashed #d4c4a0;
 }
 
-/* Herramientas */
+.panel-titulo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--fuente-titulo);
+    font-size: 0.95rem;
+    color: var(--verde-oscuro);
+    letter-spacing: 1px;
+    padding-bottom: 6px;
+    margin-bottom: 6px;
+    border-bottom: 2px solid #c8b480;
+}
+
+/* Herramientas en panel */
 .herramienta {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 5px;
-    margin-bottom: 4px;
-    background: #f5f5f5;
-    border-radius: 5px;
-    font-size: 0.85rem;
+    padding: 6px 8px;
+    margin-bottom: 5px;
+    background: white;
+    border: 2px solid #d4c4a0;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--marron-oscuro);
 }
 
 .herramienta img {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     object-fit: contain;
-    background: #ddd;
     border-radius: 4px;
-    /* IMAGEN: icono de la herramienta */
+    background: #f0eadc;
 }
 
-/* Inventario */
+/* Inventario en panel */
 .item-inv {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 5px;
-    margin-bottom: 4px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
+    gap: 7px;
+    padding: 6px 8px;
+    margin-bottom: 5px;
+    border: 2px solid #d4c4a0;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    background: white;
+    transition: border-color 0.15s, background 0.15s;
 }
 
-.item-inv:hover {
-    border-color: #3a7d2c;
-}
-
-.item-inv.seleccionado {
-    border-color: #e67e22;
-    background: #fff5ee;
-}
+.item-inv:hover        { border-color: var(--verde-medio); background: #f0fcea; }
+.item-inv.seleccionado { border-color: var(--naranja); background: #fff5ee; }
 
 .item-inv img {
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     object-fit: contain;
-    background: #f0f0f0;
-    border-radius: 4px;
-    /* IMAGEN: imagen de la semilla */
+    border-radius: 5px;
+    background: #f0eadc;
 }
 
 .texto-vacio {
-    color: #aaa;
-    font-size: 0.8rem;
-    text-align: center;
-    padding: 6px 0;
-}
-
-#btn-recargar {
-    background: #9b59b6;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 7px;
-    cursor: pointer;
+    color: #b0a080;
     font-size: 0.78rem;
-    margin-top: auto;
+    text-align: center;
+    padding: 8px 0;
+    font-style: italic;
 }
 
-/* Panel terreno */
+/* --- PANEL TERRENO --- */
 #panel-terreno {
     flex: 1;
-    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 14px;
     overflow-y: auto;
-    /* IMAGEN: fondo del terreno - foto de granja con animales y plantas */
+    padding: 18px;
     background-image: url(imagenes/fondo_terreno.png);
     background-size: cover;
     background-position: center;
 }
 
-#panel-terreno h3 {
-    background: rgba(255, 255, 255, 0.85);
-    padding: 5px 18px;
-    border-radius: 20px;
-    color: #2d6a1f;
+.terreno-header h3 {
+    font-family: var(--fuente-titulo);
+    font-size: 1.25rem;
+    letter-spacing: 2px;
+    color: var(--marron-oscuro);
+    background: rgba(253, 246, 227, 0.9);
+    padding: 6px 22px;
+    border-radius: 30px;
+    border: 2px solid var(--dorado);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
-/* Cuadricula */
+/* Cuadrícula */
 #cuadricula {
-    display:grid;
-    gap: 75px;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 15px;
-    border-radius: 12px;
+    display: grid;
+    gap: 50px;
+    background: rgba(255,255,255,0.12);
+    padding: 20px;
+    border-radius: 16px;
+    backdrop-filter: blur(2px);
+    border: 2px solid rgba(255,255,255,0.25);
 }
 
 /* Parcelas */
 .parcela {
     width: 150px;
     height: 150px;
-    background: rgba(139, 90, 43, 0.8);
+    background: rgba(139, 90, 43, 0.82);
     border: 3px solid #5c3317;
-    border-radius: 8px;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     text-align: center;
+    transition: transform 0.12s, filter 0.12s, box-shadow 0.12s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15);
 }
 
 .parcela:hover {
-    filter: brightness(1.1);
+    transform: translateY(-3px) scale(1.03);
+    filter: brightness(1.12);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.35);
 }
 
 .parcela.madura {
     border-color: gold;
-    background: rgba(210, 170, 30, 0.85);
+    background: rgba(210,170,30,0.88);
+    animation: pulso-maduro 1.4s ease-in-out infinite;
+}
+
+@keyframes pulso-maduro {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,215,0,0.5); }
+    50%       { box-shadow: 0 0 0 8px rgba(255,215,0,0); }
 }
 
 .parcela img {
-    width: 125px;
-    height: 125px;
+    width: 118px;
+    height: 118px;
     object-fit: contain;
-    /* IMAGEN: imagen del cultivo segun su estado */
 }
 
 .parcela p {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     color: white;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px black;
-    margin-top: 4px;
+    font-weight: 800;
+    text-shadow: 1px 1px 3px black;
+    margin-top: 3px;
 }
 
 /* Texto de ayuda */
 #ayuda {
-    background: rgba(255, 255, 255, 0.8);
-    padding: 6px 14px;
+    background: rgba(253, 246, 227, 0.88);
+    padding: 7px 18px;
+    border-radius: 20px;
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: var(--marron-oscuro);
+    border: 2px solid var(--dorado);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* ============================================================
+   PANTALLA 4 — TIENDA
+   ============================================================ */
+#pantalla-tienda.activa {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(160deg, #1a0a00 0%, #2d1500 100%);
+}
+
+/* --- BARRA TIENDA --- */
+#tienda-barra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background: linear-gradient(90deg, var(--marron-oscuro) 0%, #2a1200 100%);
+    border-bottom: 3px solid var(--dorado);
+    flex-shrink: 0;
+    min-height: 52px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tienda-barra-left,
+.tienda-barra-right,
+.tienda-barra-center {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tienda-titulo-barra {
+    font-family: var(--fuente-titulo);
+    font-size: 1.3rem;
+    color: var(--amarillo);
+    letter-spacing: 2px;
+    -webkit-text-stroke: 0.5px var(--marron-oscuro);
+}
+
+/* --- CUERPO TIENDA (3 columnas) --- */
+#tienda-cuerpo {
+    display: flex;
+    gap: 12px;
+    padding: 14px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.tienda-seccion {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: rgba(255,255,255,0.06);
+    border-radius: 14px;
+    border: 2px solid rgba(255,255,255,0.1);
+    overflow: hidden;
+}
+
+.tienda-seccion-header {
+    padding: 12px 16px 10px;
+    border-bottom: 2px solid rgba(255,255,255,0.12);
+}
+
+.tienda-header-verde  { background: linear-gradient(135deg, rgba(42,92,26,0.8), rgba(58,125,44,0.6)); }
+.tienda-header-naranja{ background: linear-gradient(135deg, rgba(120,50,0,0.8), rgba(180,80,20,0.6)); }
+.tienda-header-azul   { background: linear-gradient(135deg, rgba(15,60,100,0.8), rgba(41,128,185,0.6)); }
+
+.tienda-seccion-header h3 {
+    font-family: var(--fuente-titulo);
+    font-size: 1.05rem;
+    color: var(--amarillo);
+    letter-spacing: 1.5px;
+    -webkit-text-stroke: 0.3px var(--marron-oscuro);
+}
+
+.seccion-desc {
+    font-size: 0.78rem;
+    color: rgba(245,230,200,0.65);
+    margin-top: 3px;
+    font-weight: 600;
+}
+
+/* Área scrollable de cada sección */
+#tienda-compra-lista,
+#tienda-venta-lista,
+#tienda-mejoras-lista {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 12px;
+}
+
+/* --- FILTRO XPATH --- */
+#tienda-filtro {
+    padding: 10px 12px 6px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.filtro-fila {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.filtro-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--crema-oscura);
+    white-space: nowrap;
+}
+
+.filtro-select,
+.filtro-input {
+    flex: 1;
+    padding: 5px 8px;
+    border-radius: 7px;
+    border: 1px solid var(--marron-claro);
+    background: rgba(255,255,255,0.08);
+    color: var(--crema-oscura);
+    font-family: var(--fuente-cuerpo);
+    font-size: 0.8rem;
+    outline: none;
+    min-width: 0;
+}
+
+.filtro-select:focus,
+.filtro-input:focus {
+    border-color: var(--amarillo);
+    background: rgba(255,255,255,0.13);
+}
+
+.filtro-select option { background: #2a1200; color: var(--crema-oscura); }
+
+.btn-filtro {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 7px;
+    font-family: var(--fuente-cuerpo);
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: filter 0.12s;
+}
+.btn-filtro:hover { filter: brightness(1.12); }
+
+.btn-filtro-aplicar { background: var(--verde-claro); color: white; }
+.btn-filtro-limpiar { background: var(--gris);        color: white; }
+
+.filtro-ayuda {
+    font-size: 0.73rem;
+    color: rgba(245,230,200,0.5);
+    font-style: italic;
+    padding-left: 2px;
+}
+
+/* --- TARJETAS DE ARTÍCULO DE TIENDA --- */
+.tienda-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
     border-radius: 10px;
-    font-size: 0.85rem;
-    color: #333;
+    padding: 10px;
+    margin-bottom: 8px;
+    transition: background 0.15s, transform 0.12s;
+}
+
+.tienda-item:hover {
+    background: rgba(255,255,255,0.12);
+    transform: translateX(3px);
+}
+
+.tienda-item img {
+    width: 54px;
+    height: 54px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.08);
+    flex-shrink: 0;
+}
+
+.tienda-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-size: 0.8rem;
+    flex: 1;
+    color: var(--crema-oscura);
+}
+
+.tienda-item-info strong {
+    font-size: 0.88rem;
+    color: var(--amarillo);
+    font-weight: 800;
+}
+
+.tienda-item-info span {
+    color: rgba(245,230,200,0.75);
+    font-weight: 600;
+}
+
+.tienda-item-info button {
+    margin-top: 6px;
+    align-self: flex-start;
+    padding: 5px 12px;
+    border: none;
+    border-radius: 7px;
+    font-family: var(--fuente-cuerpo);
+    font-size: 0.78rem;
+    font-weight: 800;
+    cursor: pointer;
+    background: var(--verde-medio);
+    color: white;
+    transition: filter 0.12s, transform 0.1s;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.3);
+}
+
+.tienda-item-info button:hover  { filter: brightness(1.12); transform: translateY(-1px); }
+.tienda-item-info button:active { transform: translateY(1px); box-shadow: 0 1px 0 rgba(0,0,0,0.3); }
+
+/* Scrollbar personalizada */
+#tienda-compra-lista::-webkit-scrollbar,
+#tienda-venta-lista::-webkit-scrollbar,
+#tienda-mejoras-lista::-webkit-scrollbar,
+#panel-lateral::-webkit-scrollbar {
+    width: 5px;
+}
+#tienda-compra-lista::-webkit-scrollbar-thumb,
+#tienda-venta-lista::-webkit-scrollbar-thumb,
+#tienda-mejoras-lista::-webkit-scrollbar-thumb,
+#panel-lateral::-webkit-scrollbar-thumb {
+    background: var(--marron-claro);
+    border-radius: 10px;
+}
+#tienda-compra-lista::-webkit-scrollbar-track,
+#tienda-venta-lista::-webkit-scrollbar-track,
+#tienda-mejoras-lista::-webkit-scrollbar-track,
+#panel-lateral::-webkit-scrollbar-track {
+    background: transparent;
 }

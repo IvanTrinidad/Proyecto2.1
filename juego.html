@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Plantimales — Juego</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <!-- =====================================================
+         PANTALLA: JUEGO PRINCIPAL
+         ===================================================== -->
+    <div id="pantalla-juego" class="pantalla activa">
+
+        <div id="barra">
+            <div class="barra-info">
+                <span class="barra-chip barra-chip-verde">
+                    <span class="chip-icono">&#128104;&#8205;&#127806;</span>
+                    <span id="lbl-nombre">&#8212;</span>
+                </span>
+                <span class="barra-chip barra-chip-marron">
+                    <span class="chip-icono">&#127969;</span>
+                    <span id="lbl-granja">&#8212;</span>
+                </span>
+                <span class="barra-chip barra-chip-dorado">
+                    <span class="chip-icono">&#129779;</span>
+                    <strong id="lbl-dinero">0</strong>
+                </span>
+            </div>
+            <div class="barra-acciones">
+                <button id="btn-guardar"  class="btn-barra btn-barra-naranja">&#128190; Guardar</button>
+                <button id="btn-tienda"   class="btn-barra btn-barra-azul">&#128722; Tienda</button>
+                <button id="btn-menu"     class="btn-barra btn-barra-gris">&#8592; Menu</button>
+            </div>
+        </div>
+
+        <div id="zona-juego">
+
+            <div id="panel-lateral">
+                <div class="panel-seccion">
+                    <h3 class="panel-titulo"><span>&#128295;</span> Herramientas</h3>
+                    <div id="lista-herramientas"></div>
+                </div>
+                <div class="panel-seccion">
+                    <h3 class="panel-titulo"><span>&#127820;</span> Semillas</h3>
+                    <div id="lista-inventario"></div>
+                </div>
+            </div>
+
+            <div id="panel-terreno">
+                <div class="terreno-header">
+                    <h3>&#127806; Terreno de Plantimales</h3>
+                </div>
+                <div id="cuadricula"></div>
+                <p id="ayuda">Selecciona una semilla del panel y haz clic en una parcela para plantar.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="Granjero.js?v=2"></script>
+    <script src="Herramienta.js?v=2"></script>
+    <script src="Semilla.js?v=2"></script>
+    <script src="Parcela.js?v=2"></script>
+    <script src="Terreno.js?v=2"></script>
+    <script src="Guardado.js?v=2"></script>
+    <script src="DatosXML.js?v=2"></script>
+    <script src="juego.js?v=2"></script>
+
+</body>
+</html>

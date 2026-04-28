@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Plantimales — Nueva Partida</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <!-- =====================================================
+         PANTALLA: CONFIGURACION DE PARTIDA
+         ===================================================== -->
+    <div id="pantalla-config" class="pantalla activa">
+        <div class="deco deco-nube deco-nube-1">&#9729;</div>
+        <div class="deco deco-nube deco-nube-2">&#9729;</div>
+
+        <div class="config-contenido">
+            <div class="config-card">
+                <div class="config-header">
+                    <span class="config-icono">&#127969;</span>
+                    <h2>Nueva Partida</h2>
+                    <p class="config-desc">Configura tu granja antes de empezar</p>
+                </div>
+
+                <div class="config-campos">
+                    <div class="campo">
+                        <label for="inp-nombre"><span class="campo-icono">&#128104;&#8205;&#127806;</span> Nombre del granjero</label>
+                        <input type="text" id="inp-nombre" maxlength="20" placeholder="Ej: Pepito">
+                        <span class="error" id="err-nombre"></span>
+                    </div>
+                    <div class="campo">
+                        <label for="inp-granja"><span class="campo-icono">&#127803;</span> Nombre de la granja</label>
+                        <input type="text" id="inp-granja" maxlength="25" placeholder="Ej: Granja El Sol">
+                        <span class="error" id="err-granja"></span>
+                    </div>
+                    <div class="campo">
+                        <label for="inp-dificultad"><span class="campo-icono">&#9876;</span> Dificultad</label>
+                        <select id="inp-dificultad">
+                            <option value="">&#8212; Elige una dificultad &#8212;</option>
+                            <option value="facil">&#128994; Facil &mdash; 200 monedas iniciales</option>
+                            <option value="normal">&#128993; Normal &mdash; 100 monedas iniciales</option>
+                            <option value="dificil">&#128308; Dificil &mdash; 50 monedas iniciales</option>
+                        </select>
+                        <span class="error" id="err-dificultad"></span>
+                    </div>
+                    <div class="campo">
+                        <label for="inp-terreno"><span class="campo-icono">&#128506;</span> Tamano del terreno</label>
+                        <select id="inp-terreno">
+                            <option value="">&#8212; Elige un tamano &#8212;</option>
+                            <option value="4">&#127807; Pequeno &mdash; 4 parcelas</option>
+                            <option value="6">&#127807; Mediano &mdash; 6 parcelas</option>
+                            <option value="9">&#127795; Grande &mdash; 9 parcelas</option>
+                        </select>
+                        <span class="error" id="err-terreno"></span>
+                    </div>
+                </div>
+
+                <div class="config-botones">
+                    <button id="btn-volver"  class="btn-config btn-config-gris">&#8592; Volver</button>
+                    <button id="btn-empezar" class="btn-config btn-config-verde">Empezar &#128665;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="Guardado.js?v=2"></script>
+    <script src="config.js?v=2"></script>
+
+</body>
+</html>

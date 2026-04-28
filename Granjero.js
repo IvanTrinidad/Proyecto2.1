@@ -19,6 +19,8 @@ class Granjero {
         this.dinero = dinero;           // Dinero inicial segun la dificultad elegida
         this.inventario = [];           // Array vacio que guardara las semillas del jugador
                                         // Cada elemento tiene la forma: { nombre, cantidad }
+        this.cultivos = [];             // Array de cultivos recolectados listos para vender
+                                        // Cada elemento tiene la forma: { nombre, cantidad }
     }
  
     // ----------------------------------------------------------
@@ -96,5 +98,34 @@ class Granjero {
         return this.inventario.some(function(i) {
             return i.nombre === nombre && i.cantidad > 0;
         });
+    }
+
+    // ----------------------------------------------------------
+    // METODO: agregarCultivo
+    // PROPOSITO: Aniade cultivos recolectados al almacen de venta.
+    // Funciona igual que agregarInventario pero sobre this.cultivos.
+    // ----------------------------------------------------------
+    agregarCultivo(nombre, cantidad) {
+        let item = this.cultivos.find(function(i) { return i.nombre === nombre; });
+        if (item) {
+            item.cantidad += cantidad;
+        } else {
+            this.cultivos.push({ nombre: nombre, cantidad: cantidad });
+        }
+    }
+
+    // ----------------------------------------------------------
+    // METODO: quitarCultivo
+    // PROPOSITO: Resta unidades de un cultivo al venderlo.
+    // DEVUELVE: true si habia stock, false si no
+    // ----------------------------------------------------------
+    quitarCultivo(nombre, cantidad) {
+        let item = this.cultivos.find(function(i) { return i.nombre === nombre; });
+        if (!item || item.cantidad < cantidad) return false;
+        item.cantidad -= cantidad;
+        if (item.cantidad === 0) {
+            this.cultivos = this.cultivos.filter(function(i) { return i.nombre !== nombre; });
+        }
+        return true;
     }
 }

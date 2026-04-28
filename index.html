@@ -3,114 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>Plantimales</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
 
-    <!-- PANTALLA: Menu de inicio -->
+    <!-- =====================================================
+         PANTALLA: MENU DE INICIO
+         ===================================================== -->
     <div id="pantalla-inicio" class="pantalla activa">
-        <div class="caja-centro">
-            <h1>Plantimales</h1>
-            <p class="subtitulo">Esta granja te sorprenderá</p>
-            <button id="btn-nueva">Nueva Partida</button>
-            <button id="btn-continuar">Continuar Partida</button>
-            <button id="btn-eliminar">Eliminar Partida</button>
-            <a id="btn-github" href="https://github.com/IvanTrinidad/Proyecto2.1" target="_blank">Ver en GitHub</a>
+        <div class="deco deco-nube deco-nube-1">&#9729;</div>
+        <div class="deco deco-nube deco-nube-2">&#9729;</div>
+        <div class="deco deco-sol">&#9728;</div>
+
+        <div class="inicio-contenido">
+            <div class="logo-bloque">
+                <div class="logo-icono">&#127807;</div>
+                <h1 class="logo-titulo">Plantimales</h1>
+                <p class="logo-subtitulo">La granja donde nada es como lo crees</p>
+            </div>
+            <div class="inicio-card">
+                <button id="btn-nueva"     class="btn-inicio btn-verde">&#127806; Nueva Partida</button>
+                <button id="btn-continuar" class="btn-inicio btn-amarillo">&#9654; Continuar Partida</button>
+                <button id="btn-eliminar"  class="btn-inicio btn-rojo">&#128465; Eliminar Partida</button>
+                <a id="btn-github" class="btn-inicio btn-oscuro" href="https://github.com/IvanTrinidad/Proyecto2.1" target="_blank">&#128025; Ver en GitHub</a>
+            </div>
+            <p class="inicio-version">Plantimales v2.2 &middot; Fase 2</p>
         </div>
     </div>
 
-    <!-- PANTALLA: Configuracion de partida -->
-    <div id="pantalla-config" class="pantalla">
-        <div class="caja-centro">
-            <h2>Nueva Partida</h2>
-
-            <div class="campo">
-                <label>Nombre del granjero:</label>
-                <input type="text" id="inp-nombre" maxlength="20">
-                <span class="error" id="err-nombre"></span>
-            </div>
-
-            <div class="campo">
-                <label>Nombre de la granja:</label>
-                <input type="text" id="inp-granja" maxlength="25">
-                <span class="error" id="err-granja"></span>
-            </div>
-
-            <div class="campo">
-                <label>Dificultad:</label>
-                <select id="inp-dificultad">
-                    <option value="">-- Elige --</option>
-                    <option value="facil">Facil (200 monedas)</option>
-                    <option value="normal">Normal (100 monedas)</option>
-                    <option value="dificil">Dificil (50 monedas)</option>
-                </select>
-                <span class="error" id="err-dificultad"></span>
-            </div>
-
-            <div class="campo">
-                <label>Tamanio del terreno:</label>
-                <select id="inp-terreno">
-                    <option value="">-- Elige --</option>
-                    <option value="4">Pequenio (4 parcelas)</option>
-                    <option value="6">Mediano (6 parcelas)</option>
-                    <option value="9">Grande (9 parcelas)</option>
-                </select>
-                <span class="error" id="err-terreno"></span>
-            </div>
-
-            <div class="botones-fila">
-                <button id="btn-volver">Volver</button>
-                <button id="btn-empezar">Empezar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- PANTALLA: Juego -->
-    <div id="pantalla-juego" class="pantalla">
-
-        <!-- Barra de informacion del granjero -->
-        <div id="barra">
-            <span>Granjero: <strong id="lbl-nombre"></strong></span>
-            <span>Granja: <strong id="lbl-granja"></strong></span>
-            <span>Dinero: <strong id="lbl-dinero"></strong> monedas</span>
-            <button id="btn-guardar">Guardar</button>
-            <button id="btn-menu">Menu</button>
-        </div>
-
-        <!-- Zona principal del juego -->
-        <div id="zona-juego">
-
-            <!-- Panel lateral: herramientas e inventario -->
-            <div id="panel-lateral">
-                <h3>Herramientas</h3>
-                <div id="lista-herramientas"></div>
-
-                <h3>Inventario</h3>
-                <div id="lista-inventario"></div>
-
-                <!-- Boton provisional para recargar semillas (Fase 1) -->
-                <button id="btn-recargar">[TEST] Recargar semillas</button>
-            </div>
-
-            <!-- Panel del terreno -->
-            <div id="panel-terreno">
-                <h3>Terreno de Plantimales</h3>
-                <!-- IMAGEN: panel-terreno tiene como fondo img/fondo-granja.jpg -->
-                <div id="cuadricula"></div>
-                <p id="ayuda">Selecciona una semilla y haz clic en una parcela para plantar.</p>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Cargamos primero las clases y luego main.js -->
-    <script src="Granjero.js?v=2"></script>
-    <script src="Herramienta.js?v=2"></script>
-    <script src="Semilla.js?v=2"></script>
-    <script src="Parcela.js?v=2"></script>
-    <script src="Terreno.js?v=2"></script>
     <script src="Guardado.js?v=2"></script>
-    <script src="main.js?v=2"></script>
+    <script src="inicio.js?v=2"></script>
 
 </body>
 </html>

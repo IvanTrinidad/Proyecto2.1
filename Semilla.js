@@ -34,36 +34,7 @@ class Semilla {
 
 // ============================================================
 // ARRAY GLOBAL: SEMILLAS
-// PROPOSITO: Almacena las dos semillas disponibles en Fase 1.
-// Es una constante global accesible desde cualquier archivo JS
-// que se cargue despues de este en el HTML.
-// En Fase 2 se integrara con un fichero XML para gestionarlas.
+// PROPOSITO: Se rellena dinamicamente desde datos.xml mediante
+// DatosXML.js al arrancar el juego. No se hardcodea aqui.
+// La declaracion (let SEMILLAS = []) esta en DatosXML.js.
 // ============================================================
-const SEMILLAS = [
-
-    new Semilla(
-        "CerdiPlanta",          // Nombre identificador
-        30,                     // Madura en 30 segundos
-        15,                     // Da 15 monedas al recolectar
-        "imagenes/cerdo_1.png", // Fase 1: recien plantada
-        "imagenes/Cerdo_2.png", // Fase 2: creciendo
-        "imagenes/Cerdo_3.png"  // Fase 3: madura, lista para recolectar
-    ),
-
-    new Semilla(
-        "VaquiPlanta",          // Nombre identificador
-        60,                     // Madura en 60 segundos (el doble que la CerdiPlanta)
-        30,                     // Da 30 monedas al recolectar (el doble de beneficio)
-        "imagenes/Vaca_1.png",  // Fase 1: recien plantada
-        "imagenes/Vaca_2.png",  // Fase 2: creciendo
-        "imagenes/Vaca_3.png"   // Fase 3: madura, lista para recolectar
-    ),
-     new Semilla(
-        "GatiPlanta",          // Nombre identificador
-        120,                     // Madura en 60 segundos (el doble que la CerdiPlanta)
-        90,                     // Da 30 monedas al recolectar (el doble de beneficio)
-        "imagenes/Gato_1.png",  // Fase 1: recien plantada
-        "imagenes/Gato_2.png",  // Fase 2: creciendo
-        "imagenes/Gato_3.png"   // Fase 3: madura, lista para recolectar
-    )
-];
