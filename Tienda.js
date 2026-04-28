@@ -194,7 +194,9 @@ function venderCultivo(semilla, cantidad) {
 
     granjero.dinero += total;
     alert("Has vendido " + cantidad + "x " + semilla.nombre + " por " + total + " monedas.");
-
+// Comprobar logro (si juego.js está activo, la función existe)
+    if (typeof _comprobarLogro === "function") _comprobarLogro();
+    
     pintarDineroTienda();
     pintarTiendaVenta();
 }
@@ -205,6 +207,7 @@ function venderCultivo(semilla, cantidad) {
 // y el boton para mejorarlas si tienen nivel siguiente.
 // Usa DATOS_HERRAMIENTAS (cargados del XML).
 // ============================================================
+
 function pintarMejorasHerramientas() {
     let contenedor = document.getElementById("tienda-mejoras-lista");
     contenedor.innerHTML = "";
@@ -241,7 +244,37 @@ function pintarMejorasHerramientas() {
 
         info.appendChild(nombre);
         info.appendChild(descActual);
+ // Si la herramienta está rota, mostramos solo el botón de reparar
+        if (her.rota) {
+            let divRota = document.createElement("span");
+            divRota.textContent = "ROTA";
+            divRota.style.color = "red";
+            divRota.style.fontWeight = "bold";
 
+            let precioReparacion = 40 * her.nivel;
+            let btnReparar = document.createElement("button");
+            btnReparar.textContent = "🔧 Reparar (" + precioReparacion + " monedas)";
+            btnReparar.addEventListener("click", (function(herRef, precio) {
+                return function() {
+                    if (granjero.dinero < precio) {
+                        alert("No tienes suficiente dinero para reparar " + herRef.nombre + ".");
+                        return;
+                    }
+                    granjero.dinero -= precio;
+                    herRef.rota = false;
+                    alert(herRef.nombre + " reparada correctamente.");
+                    pintarDineroTienda();
+                    pintarMejorasHerramientas();
+                };
+            })(her, precioReparacion));
+
+            info.appendChild(divRota);
+            info.appendChild(btnReparar);
+            divHer.appendChild(img);
+            divHer.appendChild(info);
+            contenedor.appendChild(divHer);
+            return; // No mostramos opciones de mejora si está rota
+        }
         let siguienteNivel = obtenerSiguienteNivel(her);
         if (siguienteNivel) {
             let descSig = document.createElement("span");
@@ -269,6 +302,8 @@ function pintarMejorasHerramientas() {
         divHer.appendChild(img);
         divHer.appendChild(info);
         contenedor.appendChild(divHer);
+
+        
     });
 }
 
@@ -287,6 +322,7 @@ function mejorarHerramienta(herramienta, siguienteNivelDatos) {
     pintarDineroTienda();
     pintarMejorasHerramientas();
 }
+
 
 // ============================================================
 // FILTRADO XPath DE SEMILLAS EN LA TIENDA

@@ -885,3 +885,52 @@ body {
 #panel-lateral::-webkit-scrollbar-track {
     background: transparent;
 }
+/* ============================================================
+   LOGRO BANNER
+   ============================================================ */
+.logro-banner {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(135deg, #f9a825, #f57f17);
+    color: #fff;
+    border-radius: 16px;
+    padding: 16px 24px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+    align-items: center;
+    gap: 14px;
+    z-index: 9999;
+    animation: logro-entrada 0.4s ease;
+    max-width: 340px;
+}
+
+.logro-banner.logro-visible {
+    display: flex;
+}
+
+.logro-icono {
+    font-size: 2.4rem;
+}
+
+.logro-texto {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.logro-texto strong {
+    font-size: 1rem;
+    font-family: 'Luckiest Guy', cursive;
+    letter-spacing: 0.5px;
+}
+
+.logro-texto span {
+    font-size: 0.85rem;
+    opacity: 0.92;
+}
+
+@keyframes logro-entrada {
+    from { transform: translateX(120%); opacity: 0; }
+    to   { transform: translateX(0);   opacity: 1; }
+}

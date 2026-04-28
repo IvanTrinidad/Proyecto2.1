@@ -90,6 +90,7 @@ function _parsearHerramientas(xmlDoc) {
         let descripcion = _texto(nodo, "descripcion");
 
         let niveles = [];
+        let rota = false;
         let nodosNivel = nodo.querySelectorAll("nivel");
 
         nodosNivel.forEach(function(nNivel) {

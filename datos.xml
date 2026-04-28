@@ -12,7 +12,7 @@
             <nombre>CerdiPlanta</nombre>
             <tipo>animal</tipo>
             <precioCompra>8</precioCompra>
-            <precioVenta>15</precioVenta>
+            <precioVenta>500</precioVenta>
             <segundosMaduracion>30</segundosMaduracion>
             <imgFase1>imagenes/cerdo_1.png</imgFase1>
             <imgFase2>imagenes/Cerdo_2.png</imgFase2>
@@ -61,6 +61,17 @@
             <imgFase1>imagenes/Caracol_1.png</imgFase1>
             <imgFase2>imagenes/Caracol_2.png</imgFase2>
             <imgFase3>imagenes/Caracol_3.png</imgFase3>
+        </semilla>
+
+        <semilla>
+            <nombre>PatoPlanta</nombre>
+            <tipo>ave</tipo>
+            <precioCompra>80</precioCompra>
+            <precioVenta>190</precioVenta>
+            <segundosMaduracion>100</segundosMaduracion>
+            <imgFase1>imagenes/pato_1.jpg</imgFase1>
+            <imgFase2>imagenes/pato_2.jpg</imgFase2>
+            <imgFase3>imagenes/pato_3.jpg</imgFase3>
         </semilla>
 
     </semillas>

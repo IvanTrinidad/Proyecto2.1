@@ -38,8 +38,8 @@ class Guardado {
 
             // De cada herramienta guardamos nombre, descripcion y nivel
             // map() transforma cada objeto Herramienta en un objeto simple
-            herramientas: herramientas.map(function(h) {
-                return { nombre: h.nombre, descripcion: h.descripcion, nivel: h.nivel };
+           herramientas: herramientas.map(function(h) {
+            return { nombre: h.nombre, descripcion: h.descripcion, nivel: h.nivel, rota: h.rota };
             }),
 
             // De cada parcela guardamos solo lo necesario para reconstruirla:

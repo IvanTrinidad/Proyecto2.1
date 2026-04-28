@@ -98,10 +98,12 @@ function _continuarPartida() {
         }
     }
 
+   
     herramientas = datos.herramientas.map(function(h) {
-        let her = new Herramienta(h.nombre, h.descripcion);
-        her.nivel = h.nivel;
-        return her;
+    let her = new Herramienta(h.nombre, h.descripcion);
+    her.nivel = h.nivel;
+    her.rota = h.rota || false;
+    return her;
     });
 
     _iniciarJuego();
@@ -314,18 +316,34 @@ function clicEnParcela(indice) {
 
     } else if (parcela.madura) {
         let nombreFruto = parcela.semilla.nombre;
-        let extraHoz    = aplicarBonificacionHoz(herramientas);
-        let unidades    = 1 + extraHoz;
+        let hoz = herramientas.find(function(h) { return h.nombre === "Hoz"; });
+        let extraHoz = 0;
+        let msgHoz = "";
 
+        if (hoz && hoz.rota) {
+            msgHoz = " (Hoz rota, sin bonus)";
+        } else {
+            extraHoz = aplicarBonificacionHoz(herramientas);
+            // Probabilidad de rotura de la Hoz: 15%
+            if (hoz && hoz.nivel > 1 && Math.random() < 0.15) {
+                hoz.rota = true;
+                msgHoz = " (+" + extraHoz + " extra por Hoz)  ¡La Hoz se ha roto!";
+            } else if (extraHoz > 0) {
+                msgHoz = " (+" + extraHoz + " extra por Hoz)";
+            }
+        }
+
+        let unidades = 1 + extraHoz;
         granjero.agregarCultivo(nombreFruto, unidades);
         parcela.limpiar();
 
-        let msgHoz = extraHoz > 0 ? " (+" + extraHoz + " extra por Hoz)" : "";
         alert("Has recolectado " + unidades + "x " + nombreFruto + msgHoz + ". Vendelo en la tienda.");
+
+        // Comprobar logro de dinero ganado vendiendo
+        _comprobarLogro();
 
         pintarBarra();
         pintarTerreno();
-
     } else {
         alert("No esta listo todavia. Quedan " + parcela.segundosRestantes() + " segundos.");
     }
@@ -339,3 +357,22 @@ function _guardarPartida() {
     alert("Partida guardada correctamente.");
 }
 
+// ============================================================
+// LOGRO: Acumulador de dinero ganado vendiendo
+// ============================================================
+let _dineroTotalGanado = 0;
+let _logroMostrado = false;
+
+function _comprobarLogro() {
+    // El logro se activa cuando el dinero del granjero supera 500 monedas
+    if (!_logroMostrado && granjero.dinero >= 1000) {
+        _logroMostrado = true;
+        let banner = document.getElementById("logro-banner");
+        if (banner) {
+            banner.classList.add("logro-visible");
+            setTimeout(function() {
+                banner.classList.remove("logro-visible");
+            }, 5000);
+        }
+    }
+}

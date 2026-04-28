@@ -17,5 +17,6 @@ class Herramienta {
         this.nombre = nombre;           // Nombre de la herramienta (ej: "Azada")
         this.descripcion = descripcion; // Texto explicativo de para que sirve
         this.nivel = 1;                 // Nivel inicial. En Fase 2 se podra mejorar con dinero
+        this.rota = false;   // true si la herramienta se ha roto
     }
 }

@@ -674,23 +674,34 @@ function clicEnParcela(indice) {
         // CASO 2: La parcela tiene un cultivo maduro, lo recolectamos
 
         let nombreFruto = parcela.semilla.nombre;
-        // La Hoz permite obtener unidades extra al recolectar
-        let extraHoz = aplicarBonificacionHoz(herramientas);
+        let hoz = herramientas.find(function(h) { return h.nombre === "Hoz"; });
+        let extraHoz = 0;
+        let msgHoz = "";
+
+        if (hoz && hoz.rota) {
+            msgHoz = " (Hoz rota, sin bonus)";
+        } else {
+            extraHoz = aplicarBonificacionHoz(herramientas);
+            // Probabilidad de rotura de la Hoz: 15%
+            if (hoz && hoz.nivel > 1 && Math.random() < 0.9) {
+                hoz.rota = true;
+                msgHoz = " (+" + extraHoz + " extra por Hoz) ¡La Hoz se ha roto!";
+            } else if (extraHoz > 0) {
+                msgHoz = " (+" + extraHoz + " extra por Hoz)";
+            }
+        }
+
         let unidades = 1 + extraHoz;
-
-        // Anadimos el cultivo recolectado al almacen de venta (no al inventario de semillas)
         granjero.agregarCultivo(nombreFruto, unidades);
-
-        // Limpiamos la parcela dejandola vacia de nuevo
         parcela.limpiar();
 
-        let msgHoz = extraHoz > 0 ? " (+" + extraHoz + " extra por Hoz)" : "";
         alert("Has recolectado " + unidades + "x " + nombreFruto + msgHoz + ". Vendelo en la tienda.");
 
-        // Actualizamos la pantalla
+        // Comprobar logro de dinero ganado vendiendo
+        _comprobarLogro();
+
         pintarBarra();
         pintarTerreno();
-
     }else {
         // CASO 3: La parcela tiene un cultivo que todavia no ha madurado
         alert("No esta listo todavia. Quedan " + parcela.segundosRestantes() + " segundos.");
